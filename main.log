@@ -1,0 +1,14 @@
+2023-02-16 11:12:00,450 - root - INFO - poured 1.0 liters
+2023-02-16 11:12:02,795 - root - INFO - kettle turned on
+2023-02-16 11:12:02,812 - root - INFO - temperature: 0 °C
+2023-02-16 11:12:03,823 - root - INFO - temperature: 10 °C
+2023-02-16 11:12:04,888 - root - INFO - temperature: 20 °C
+2023-02-16 11:12:05,921 - root - INFO - temperature: 30 °C
+2023-02-16 11:12:06,986 - root - INFO - temperature: 40 °C
+2023-02-16 11:12:08,060 - root - INFO - temperature: 50 °C
+2023-02-16 11:12:09,092 - root - INFO - temperature: 60 °C
+2023-02-16 11:12:10,169 - root - INFO - temperature: 70 °C
+2023-02-16 11:12:11,217 - root - INFO - temperature: 80 °C
+2023-02-16 11:12:12,283 - root - INFO - temperature: 90 °C
+2023-02-16 11:12:13,373 - root - INFO - temperature: 100 °C
+2023-02-16 11:12:14,419 - root - INFO - water boiled, kettle turn off
