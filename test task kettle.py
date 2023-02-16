@@ -14,9 +14,10 @@ logging.basicConfig(
 
 config = configparser.ConfigParser()
 config.read("setup.ini")
-# создаём объекта парсера для получения данных из файла конфигурации
+kettle_config = config['Kettle']
+# created parser object for getting data from config file
 
-STOP_KEY = config['Kettle']['stop_key']
+STOP_KEY = kettle_config['stop_key']
 STOP_MESSAGE = f'press {STOP_KEY} to stop the program'
 
 
@@ -24,6 +25,7 @@ def check_exit() -> None:
     """Added second stream in programm
        for keyboard interrupt opportunity.
     """
+
     print(STOP_MESSAGE)
     while True:
         if keyboard.is_pressed(STOP_KEY):
@@ -37,8 +39,8 @@ class Kettle:
     def water_amount(self) -> str:
         """Asking amount of water to pour."""
 
-        min_ammount = float(config['Kettle']['min_ammount'])
-        max_ammount = float(config['Kettle']['max_ammount'])
+        min_ammount = float(kettle_config['min_ammount'])
+        max_ammount = float(kettle_config['max_ammount'])
 
         while True:
             try:
@@ -60,15 +62,17 @@ class Kettle:
 
     def turn_on_question(self) -> str:
         """Decision to turn on a kettle."""
+
         while True:
             question = input('Wanna start boiling? yes/no: ')
-            if question == 'yes':
+            if question == 'yes' or question == 'y':
                 logging.info('kettle turned on')
                 print('Kettle turned on')
                 return True
-            elif question == 'no':
+            elif question == 'no' or question == 'n':
                 logging.info('a kettle wasnt turned on, program stopped')
                 print('Ok, see you soon :)')
+                print(STOP_MESSAGE)
                 return False
             else:
                 logging.info('wrong input')
@@ -77,9 +81,10 @@ class Kettle:
 
     def boiling(self) -> str:
         """Boiling water process."""
+
         temperature = 0
-        boiling_time = int(config['Kettle']['boiling_time'])  # default = 10
-        boiling_temperature = int(config['Kettle']['boiling_temperature'])  # default = 100
+        boiling_time = int(kettle_config['boiling_time'])  # default = 10
+        boiling_temperature = int(kettle_config['boiling_temperature'])  # default = 100
         one_sec = 1
 
         while temperature <= boiling_temperature:
@@ -90,17 +95,22 @@ class Kettle:
         print(f'temperature: {int(boiling_temperature)} °C')
         logging.info('water boiled, kettle turn off')
         print('Done! water boiled', 'Kettle turn off', sep='\n')
+        print(STOP_MESSAGE)
 
 
 def main() -> None:
     """Main function for program."""
+
     kettle = Kettle()
     kettle.water_amount()
     if kettle.turn_on_question():
         kettle.boiling()
 
 
-thread1 = Thread(target=check_exit, daemon=False)
-thread1.start()
-thread2 = Thread(target=main, daemon=True)
-thread2.start()
+if __name__ == '__main__':
+
+    # starting threads
+    thread1 = Thread(target=check_exit, daemon=False)
+    thread1.start()
+    thread2 = Thread(target=main, daemon=True)
+    thread2.start()
