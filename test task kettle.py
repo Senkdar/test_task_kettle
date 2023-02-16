@@ -10,7 +10,8 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
     filename='main.log',
-    filemode='w')
+    filemode='w'
+)
 
 # create parser object for getting data from config file
 config = configparser.ConfigParser()
