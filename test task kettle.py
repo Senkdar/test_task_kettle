@@ -12,19 +12,17 @@ logging.basicConfig(
     filename='main.log',
     filemode='w')
 
+# create parser object for getting data from config file
 config = configparser.ConfigParser()
 config.read("setup.ini")
 kettle_config = config['Kettle']
-# created parser object for getting data from config file
 
 STOP_KEY = kettle_config['stop_key']
 STOP_MESSAGE = f'press {STOP_KEY} to stop the program'
 
 
 def check_exit() -> None:
-    """Added second stream in programm
-       for keyboard interrupt opportunity.
-    """
+    """function for keyboard interrupt opportunity."""
 
     print(STOP_MESSAGE)
     while True:
@@ -109,7 +107,7 @@ def main() -> None:
 
 if __name__ == '__main__':
 
-    # starting threads
+    # running threads
     thread1 = Thread(target=check_exit, daemon=False)
     thread1.start()
     thread2 = Thread(target=main, daemon=True)
